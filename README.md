@@ -1,141 +1,365 @@
-# Vehicle Detection Project
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">车辆检测、跟踪和计数</font></font></h1><a id="user-content-vehicle-detection-tracking-and-counting" class="anchor" aria-label="永久链接：车辆检测、跟踪和计数" href="#vehicle-detection-tracking-and-counting"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最后页面更新：</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">12/04/2017</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（添加了 Python API 和 OpenCV 3.x 支持）</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最新版本：</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1.0.0</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（有关更多信息，请参阅发行说明）</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">大家好，</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">有多种方法可以执行车辆检测、跟踪和计数。</font><font style="vertical-align: inherit;">以下是执行此操作的最简单方法的分步：</font></font></p>
+<ol dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首先，您需要检测移动物体。</font><font style="vertical-align: inherit;">进行车辆检测的一种简单方法是使用背景扣除 (BS) 算法。</font><font style="vertical-align: inherit;">您可以尝试使用背景扣除库，例如</font></font><a href="https://github.com/andrewssobral/bgslibrary#bgslibrary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">BGSLibrary</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对于车辆跟踪，您需要使用跟踪算法。</font><font style="vertical-align: inherit;">最简单的方法是使用 blob 跟踪器算法（请参阅</font></font><a href="https://code.google.com/p/cvblob/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">cvBlob</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">或</font></font><a href="http://opencvblobslib.github.io/opencvblobslib/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">OpenCVBlobsLib</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">）。</font><font style="vertical-align: inherit;">因此，将前景蒙版发送到</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">cvBlob</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">或</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">OpenCVBlobsLib</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">例如，</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">cvBlob</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">库提供了一些方法来获取</font><font style="vertical-align: inherit;">移动物体的</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">质心</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">、</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">轨迹</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ID 。</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您还可以设置绘制</font><font style="vertical-align: inherit;">跟踪对象的</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">边界框</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">、</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">质心</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">角度。</font></font></strong><font style="vertical-align: inherit;"></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">然后，检查移动物体的</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">质心</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是否穿过</font><font style="vertical-align: inherit;">视频中的</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">感兴趣区域（即虚拟线）。</font></font></strong><font style="vertical-align: inherit;"></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">瞧！</font><font style="vertical-align: inherit;">好好享受 ：）</font></font></li>
+</ol>
+<p align="center" dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://raw.githubusercontent.com/andrewssobral/simple_vehicle_counting/master/doc/images/vehicle_counting_screen.png"><img src="https://raw.githubusercontent.com/andrewssobral/simple_vehicle_counting/master/doc/images/vehicle_counting_screen.png" style="max-width: 100%;"></a></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">引文</font></font></h2><a id="user-content-citation" class="anchor" aria-label="永久链接：引文" href="#citation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您在出版物中使用此代码，请将其引用为：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>@ONLINE{vdtc,
+    author = "Andrews Sobral",
+    title  = "Vehicle Detection, Tracking and Counting",
+    year   = "2014",
+    url    = "https://github.com/andrewssobral/simple_vehicle_counting"
+}
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="@ONLINE{vdtc,
+    author = &quot;Andrews Sobral&quot;,
+    title  = &quot;Vehicle Detection, Tracking and Counting&quot;,
+    year   = &quot;2014&quot;,
+    url    = &quot;https://github.com/andrewssobral/simple_vehicle_counting&quot;
+}" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对于 Windows 用户</font></font></h2><a id="user-content-for-windows-users" class="anchor" aria-label="永久链接：适用于 Windows 用户" href="#for-windows-users"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">不再有 Visual Studio 2013 模板项目。</font><font style="vertical-align: inherit;">请改用 CMAKE。</font></font></li>
+</ul>
+<div class="markdown-heading" dir="auto"><h4 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用 CMAKE 中的 OpenCV 3.x 和 Visual Studio 2015 进行编译</font></font></h4><a id="user-content-compiling-with-opencv-3x-and-visual-studio-2015-from-cmake" class="anchor" aria-label="永久链接：使用 CMAKE 的 OpenCV 3.x 和 Visual Studio 2015 进行编译" href="#compiling-with-opencv-3x-and-visual-studio-2015-from-cmake"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">依赖项：</font></font></strong></p>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">OpenCV 3.x（使用 OpenCV 3.2.0 测试）</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">GIT（使用 git 版本 2.7.2.windows.1 进行测试）。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">适用于 Windows 的 CMAKE（使用 cmake 版本 3.1.1 进行测试）。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Microsoft Visual Studio（使用 VS2015 测试）。</font></font></li>
+</ul>
+<p dir="auto"><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">注意：OpenCV 2.4.x 和 Visual Studio 2013 的过程类似。</font></font></em></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请按照以下说明操作：</font></font></p>
+<ol dir="auto">
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">转到 Windows 控制台。</font></font></p>
+</li>
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">克隆 git 存储库：</font></font></p>
+</li>
+</ol>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>git clone --recursive https://github.com/andrewssobral/simple_vehicle_counting.git
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="git clone --recursive https://github.com/andrewssobral/simple_vehicle_counting.git" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<ol start="3" dir="auto">
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">转到</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">simple_vehicle_counting/build</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文件夹。</font></font></p>
+</li>
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">设置你的 OpenCV 路径：</font></font></p>
+</li>
+</ol>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>set OpenCV_DIR=C:\OpenCV3.2.0\build
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="set OpenCV_DIR=C:\OpenCV3.2.0\build" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<ol start="5" dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">启动CMAKE：</font></font></li>
+</ol>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>cmake -DOpenCV_DIR=%OpenCV_DIR% -G "Visual Studio 14 Win64" ..
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="cmake -DOpenCV_DIR=%OpenCV_DIR% -G &quot;Visual Studio 14 Win64&quot; .." tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<ol start="6" dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在系统路径中包含 OpenCV 二进制文件：</font></font></li>
+</ol>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>set PATH=%PATH%;%OpenCV_DIR%\x64\vc14\bin
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="set PATH=%PATH%;%OpenCV_DIR%\x64\vc14\bin" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<ol start="7" dir="auto">
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在 Visual Studio 中</font><font style="vertical-align: inherit;">打开</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">bgs.sln文件并切换到</font></font></strong><font style="vertical-align: inherit;"></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">“RELEASE”</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">模式</font></font></p>
+</li>
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">单击</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">“ALL_BUILD”</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目并构建！</font></font></p>
+</li>
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果一切顺利，将</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">simple_vehicle_counting.exe</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">复制到</font></font><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">simple_vehicle_counting/</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">并运行！</font></font></p>
+</li>
+</ol>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对于Linux用户</font></font></h2><a id="user-content-for-linux-users" class="anchor" aria-label="永久链接：对于 Linux 用户" href="#for-linux-users"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对于Linux和Mac用户，提供了CMakefile来编译源代码。</font></font></p>
+</li>
+<li>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看最新的项目源码并编译：</font></font></li>
+</ul>
+</li>
+</ul>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>~/git clone --recursive https://github.com/andrewssobral/simple_vehicle_counting.git
+~/cd simple_vehicle_counting
+~/simple_vehicle_counting/cd build
+~/simple_vehicle_counting/build/ cmake ..
+~/simple_vehicle_counting/build/ make
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="~/git clone --recursive https://github.com/andrewssobral/simple_vehicle_counting.git
+~/cd simple_vehicle_counting
+~/simple_vehicle_counting/cd build
+~/simple_vehicle_counting/build/ cmake ..
+~/simple_vehicle_counting/build/ make" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<ul dir="auto">
+<li>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">运行演示：</font></font></li>
+</ul>
+</li>
+</ul>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>~/simple_vehicle_counting/run_simple_vehicle_counting.sh
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="~/simple_vehicle_counting/run_simple_vehicle_counting.sh" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Docker镜像</font></font></h2><a id="user-content-docker-image" class="anchor" aria-label="永久链接：Docker 镜像" href="#docker-image"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Docker 镜像可在以下位置获取：</font></font></li>
+<li>
+<ul dir="auto">
+<li><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ubuntu 16.04 + VNC + OpenCV 2.4.13 + Python 2.7 + 车辆检测、跟踪和计数</font></font></strong>
+<a href="https://hub.docker.com/r/andrewssobral/vehicle_detection_tracking_counting/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">https://hub.docker.com/r/andrewssobral/vehicle_detection_tracking_counting/</font></font></a></li>
+</ul>
+</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">示例代码</font></font></h2><a id="user-content-example-code" class="anchor" aria-label="固定链接：示例代码" href="#example-code"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-c++ notranslate position-relative overflow-auto" dir="auto"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>iostream<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>opencv2/opencv.hpp<span class="pl-pds">&gt;</span></span>
 
-This is a project for Udacity self-driving car Nanodegree program. The aim of this project is to detect the vehicles in a dash camera video. The implementation of the project is in the file vehicle_detection.ipynb. This implementation is able to achieve 21FPS without batching processing. The final video output is [here](https://www.youtube.com/watch?v=PncSIx8AHTs).
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>package_bgs/PBAS/PixelBasedAdaptiveSegmenter.h<span class="pl-pds">"</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>package_tracking/BlobTracking.h<span class="pl-pds">"</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>package_analysis/VehicleCouting.h<span class="pl-pds">"</span></span>
 
-In this README, each step in the pipeline will be explained in details.
+<span class="pl-k">int</span> <span class="pl-en">main</span>(<span class="pl-k">int</span> argc, <span class="pl-k">char</span> **argv)
+{
+  <span class="pl-c"><span class="pl-c">/*</span> Open video file <span class="pl-c">*/</span></span>
+  CvCapture *capture = <span class="pl-c1">0</span>;
+  capture = <span class="pl-c1">cvCaptureFromAVI</span>(<span class="pl-s"><span class="pl-pds">"</span>dataset/video.avi<span class="pl-pds">"</span></span>);
+  <span class="pl-k">if</span>(!capture){
+    std::cerr &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Cannot open video!<span class="pl-pds">"</span></span> &lt;&lt; std::endl;
+    <span class="pl-k">return</span> <span class="pl-c1">1</span>;
+  }
 
-## Introduction to object detection
+  <span class="pl-c"><span class="pl-c">/*</span> Background Subtraction Algorithm <span class="pl-c">*/</span></span>
+  IBGS *bgs;
+  bgs = <span class="pl-k">new</span> PixelBasedAdaptiveSegmenter;
 
-Detecting vehicles in a video stream is an object detection problem. An object detection problem can be approached as either a classification problem or a regression problem. As a classification problem, the image are divided into small patches, each of which will be run through a classifier to determine whether there are objects in the patch. Then the bounding boxes will be assigned to locate around patches that are classified with high probability of present of an object. In the regression approach, the whole image will be run through a convolutional neural network to directly generate one or more bounding boxes for objects in the images.
+  <span class="pl-c"><span class="pl-c">/*</span> Blob Tracking Algorithm <span class="pl-c">*/</span></span>
+  cv::Mat img_blob;
+  BlobTracking* blobTracking;
+  blobTracking = <span class="pl-k">new</span> BlobTracking;
 
-| classification                                                                                                                               | regression                                               |
-|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
-| Classification on portions of the image to determine objects, generate bounding boxes for regions that have positive classification results. | Regression on the whole image to generate bounding boxes |
-| 1. sliding window + HOG 2. sliding window + CNN 3. region proposals + CNN                                                                    | generate bounding box coordinates directly from CNN      |
-| RCNN, Fast-RCNN, Faster-RCNN                                                                                                                 | SSD, YOLO                                                |
+  <span class="pl-c"><span class="pl-c">/*</span> Vehicle Counting Algorithm <span class="pl-c">*/</span></span>
+  VehicleCouting* vehicleCouting;
+  vehicleCouting = <span class="pl-k">new</span> VehicleCouting;
 
-In this project, we will use tiny-YOLO v1, since it's easy to implement and are reasonably fast.
+  std::cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Press 'q' to quit...<span class="pl-pds">"</span></span> &lt;&lt; std::endl;
+  <span class="pl-k">int</span> key = <span class="pl-c1">0</span>;
+  IplImage *frame;
+  <span class="pl-k">while</span>(key != <span class="pl-s"><span class="pl-pds">'</span>q<span class="pl-pds">'</span></span>)
+  {
+    frame = <span class="pl-c1">cvQueryFrame</span>(capture);
+    <span class="pl-k">if</span>(!frame) <span class="pl-k">break</span>;
 
+    cv::Mat img_input = <span class="pl-c1">cv::cvarrToMat</span>(frame);
+    <span class="pl-c1">cv::imshow</span>(<span class="pl-s"><span class="pl-pds">"</span>Input<span class="pl-pds">"</span></span>, img_input);
 
-## The tiny-YOLO v1
+    <span class="pl-c"><span class="pl-c">//</span> bgs-&gt;process(...) internally process and show the foreground mask image</span>
+    cv::Mat img_mask;
+    bgs-&gt;<span class="pl-c1">process</span>(img_input, img_mask);
 
-### Architecture of the convolutional neural network
+    <span class="pl-k">if</span>(!img_mask.<span class="pl-c1">empty</span>())
+    {
+      <span class="pl-c"><span class="pl-c">//</span> Perform blob tracking</span>
+      blobTracking-&gt;<span class="pl-c1">process</span>(img_input, img_mask, img_blob);
 
-The tiny YOLO v1 is consist of 9 convolution layers and 3 full connected layers. Each convolution layer consists of convolution, leaky relu and max pooling operations. The first 9 convolution layers can be understood as the feature extractor, whereas the last three full connected layers can be understood as the "regression head" that predicts the bounding boxes.
+      <span class="pl-c"><span class="pl-c">//</span> Perform vehicle counting</span>
+      vehicleCouting-&gt;<span class="pl-c1">setInput</span>(img_blob);
+      vehicleCouting-&gt;<span class="pl-c1">setTracks</span>(blobTracking-&gt;<span class="pl-c1">getTracks</span>());
+      vehicleCouting-&gt;<span class="pl-c1">process</span>();
+    }
 
-![model](./output_images/mode_yolo_plot.jpg)
+    key = <span class="pl-c1">cvWaitKey</span>(<span class="pl-c1">1</span>);
+  }
 
-There are a total of 45,089,374 parameters in the model and the detail of the architecture is in list in this table
+  <span class="pl-k">delete</span> vehicleCouting;
+  <span class="pl-k">delete</span> blobTracking;
+  <span class="pl-k">delete</span> bgs;
 
+  <span class="pl-c1">cvDestroyAllWindows</span>();
+  <span class="pl-c1">cvReleaseCapture</span>(&amp;capture);
 
-    ____________________________________________________________________________________________________
-    Layer (type)                     Output Shape          Param #     Connected to                     
-    ====================================================================================================
-    convolution2d_1 (Convolution2D)  (None, 16, 448, 448)  448         convolution2d_input_1[0][0]      
-    ____________________________________________________________________________________________________
-    leakyrelu_1 (LeakyReLU)          (None, 16, 448, 448)  0           convolution2d_1[0][0]            
-    ____________________________________________________________________________________________________
-    maxpooling2d_1 (MaxPooling2D)    (None, 16, 224, 224)  0           leakyrelu_1[0][0]                
-    ____________________________________________________________________________________________________
-    convolution2d_2 (Convolution2D)  (None, 32, 224, 224)  4640        maxpooling2d_1[0][0]             
-    ____________________________________________________________________________________________________
-    leakyrelu_2 (LeakyReLU)          (None, 32, 224, 224)  0           convolution2d_2[0][0]            
-    ____________________________________________________________________________________________________
-    maxpooling2d_2 (MaxPooling2D)    (None, 32, 112, 112)  0           leakyrelu_2[0][0]                
-    ____________________________________________________________________________________________________
-    convolution2d_3 (Convolution2D)  (None, 64, 112, 112)  18496       maxpooling2d_2[0][0]             
-    ____________________________________________________________________________________________________
-    leakyrelu_3 (LeakyReLU)          (None, 64, 112, 112)  0           convolution2d_3[0][0]            
-    ____________________________________________________________________________________________________
-    maxpooling2d_3 (MaxPooling2D)    (None, 64, 56, 56)    0           leakyrelu_3[0][0]                
-    ____________________________________________________________________________________________________
-    convolution2d_4 (Convolution2D)  (None, 128, 56, 56)   73856       maxpooling2d_3[0][0]             
-    ____________________________________________________________________________________________________
-    leakyrelu_4 (LeakyReLU)          (None, 128, 56, 56)   0           convolution2d_4[0][0]            
-    ____________________________________________________________________________________________________
-    maxpooling2d_4 (MaxPooling2D)    (None, 128, 28, 28)   0           leakyrelu_4[0][0]                
-    ____________________________________________________________________________________________________
-    convolution2d_5 (Convolution2D)  (None, 256, 28, 28)   295168      maxpooling2d_4[0][0]             
-    ____________________________________________________________________________________________________
-    leakyrelu_5 (LeakyReLU)          (None, 256, 28, 28)   0           convolution2d_5[0][0]            
-    ____________________________________________________________________________________________________
-    maxpooling2d_5 (MaxPooling2D)    (None, 256, 14, 14)   0           leakyrelu_5[0][0]                
-    ____________________________________________________________________________________________________
-    convolution2d_6 (Convolution2D)  (None, 512, 14, 14)   1180160     maxpooling2d_5[0][0]             
-    ____________________________________________________________________________________________________
-    leakyrelu_6 (LeakyReLU)          (None, 512, 14, 14)   0           convolution2d_6[0][0]            
-    ____________________________________________________________________________________________________
-    maxpooling2d_6 (MaxPooling2D)    (None, 512, 7, 7)     0           leakyrelu_6[0][0]                
-    ____________________________________________________________________________________________________
-    convolution2d_7 (Convolution2D)  (None, 1024, 7, 7)    4719616     maxpooling2d_6[0][0]             
-    ____________________________________________________________________________________________________
-    leakyrelu_7 (LeakyReLU)          (None, 1024, 7, 7)    0           convolution2d_7[0][0]            
-    ____________________________________________________________________________________________________
-    convolution2d_8 (Convolution2D)  (None, 1024, 7, 7)    9438208     leakyrelu_7[0][0]                
-    ____________________________________________________________________________________________________
-    leakyrelu_8 (LeakyReLU)          (None, 1024, 7, 7)    0           convolution2d_8[0][0]            
-    ____________________________________________________________________________________________________
-    convolution2d_9 (Convolution2D)  (None, 1024, 7, 7)    9438208     leakyrelu_8[0][0]                
-    ____________________________________________________________________________________________________
-    leakyrelu_9 (LeakyReLU)          (None, 1024, 7, 7)    0           convolution2d_9[0][0]            
-    ____________________________________________________________________________________________________
-    flatten_1 (Flatten)              (None, 50176)         0           leakyrelu_9[0][0]                
-    ____________________________________________________________________________________________________
-    dense_1 (Dense)                  (None, 256)           12845312    flatten_1[0][0]                  
-    ____________________________________________________________________________________________________
-    dense_2 (Dense)                  (None, 4096)          1052672     dense_1[0][0]                    
-    ____________________________________________________________________________________________________
-    leakyrelu_10 (LeakyReLU)         (None, 4096)          0           dense_2[0][0]                    
-    ____________________________________________________________________________________________________
-    dense_3 (Dense)                  (None, 1470)          6022590     leakyrelu_10[0][0]               
-    ====================================================================================================
-    Total params: 45,089,374
-    Trainable params: 45,089,374
-    Non-trainable params: 0
-    ____________________________________________________________________________________________________
+  <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}</pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="#include <iostream>
+#include <opencv2/opencv.hpp>
 
+#include &quot;package_bgs/PBAS/PixelBasedAdaptiveSegmenter.h&quot;
+#include &quot;package_tracking/BlobTracking.h&quot;
+#include &quot;package_analysis/VehicleCouting.h&quot;
 
-In this project, we will use Keras to construct the YOLO model.
+int main(int argc, char **argv)
+{
+  /* Open video file */
+  CvCapture *capture = 0;
+  capture = cvCaptureFromAVI(&quot;dataset/video.avi&quot;);
+  if(!capture){
+    std::cerr << &quot;Cannot open video!&quot; << std::endl;
+    return 1;
+  }
 
-### Postprocessing
+  /* Background Subtraction Algorithm */
+  IBGS *bgs;
+  bgs = new PixelBasedAdaptiveSegmenter;
 
-The output of this network is a 1470 vector, which contains the information for the predicted bounding boxes. The information is organized in the following way
+  /* Blob Tracking Algorithm */
+  cv::Mat img_blob;
+  BlobTracking* blobTracking;
+  blobTracking = new BlobTracking;
 
-<img src="./output_images/net_output.png" width="600"/>
+  /* Vehicle Counting Algorithm */
+  VehicleCouting* vehicleCouting;
+  vehicleCouting = new VehicleCouting;
 
-The 1470 vector output is divided into three parts, giving the probability, confidence and box coordinates. Each of these three parts is also further divided into 49 small regions, corresponding to the predictions at each cell. In postprocessing steps, we take this 1470 vector output from the network to generate the boxes that with a probability higher than a certain threshold. The detail of these steps are in the `yolo_net_out_to_car_boxes` function in the `utili` class.
+  std::cout << &quot;Press 'q' to quit...&quot; << std::endl;
+  int key = 0;
+  IplImage *frame;
+  while(key != 'q')
+  {
+    frame = cvQueryFrame(capture);
+    if(!frame) break;
 
-### Use pretrained weights
+    cv::Mat img_input = cv::cvarrToMat(frame);
+    cv::imshow(&quot;Input&quot;, img_input);
 
-Training the YOLO network is time consuming. We will download the pretrained weights from [here](https://drive.google.com/file/d/0B1tW_VtY7onibmdQWE1zVERxcjQ/view?usp=sharing) (172M) and load them into our Keras model. The weight loading function is in the `load_weight` function in the utili class
+    // bgs->process(...) internally process and show the foreground mask image
+    cv::Mat img_mask;
+    bgs->process(img_input, img_mask);
 
-```
-load_weights(model,'./yolo-tiny.weights')
-```
+    if(!img_mask.empty())
+    {
+      // Perform blob tracking
+      blobTracking->process(img_input, img_mask, img_blob);
 
-Note that tensorflow is used for the backend in this project.
+      // Perform vehicle counting
+      vehicleCouting->setInput(img_blob);
+      vehicleCouting->setTracks(blobTracking->getTracks());
+      vehicleCouting->process();
+    }
 
-## Results
+    key = cvWaitKey(1);
+  }
 
-The following shows the results for several test images with a threshold of 0.17. We can see that the cars are detected:
+  delete vehicleCouting;
+  delete blobTracking;
+  delete bgs;
 
-![png](./output_images/detection_on_test_images.png)
+  cvDestroyAllWindows();
+  cvReleaseCapture(&amp;capture);
 
-[Here](https://www.youtube.com/watch?v=PncSIx8AHTs) is the result of applying the same pipeline to a video.
-
-## Discussion
-
-The YOLO is known to be fast. In the original paper, the tiny-YOLO is reported to work at nearly 200 FPS on a powerful desktop GPU. In this project, the video is processed on a Nvidia 1070 and the rate is about 21FS without batch processing.
-
-## Reference
-
-1. J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, You Only Look Once: Unified, Real-Time Object Detection, arXiv:1506.02640 (2015).
-2. J. Redmon and A. Farhadi, YOLO9000: Better, Faster, Stronger, arXiv:1612.08242 (2016).
-3. darkflow, https://github.com/thtrieu/darkflow
-4. Darknet.keras, https://github.com/sunshineatnoon/Darknet.keras/
-5. YAD2K, https://github.com/allanzelener/YAD2K
-
-
-
-
-
+  return 0;
+}" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Python API</font></font></h2><a id="user-content-python-api" class="anchor" aria-label="永久链接：Python API" href="#python-api"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="/andrewssobral/simple_vehicle_counting/blob/master/python/demo.py"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Python 演示</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">展示</font><font style="vertical-align: inherit;">了如何调用 Python API。</font></font><a href="/andrewssobral/simple_vehicle_counting/blob/master/Demo.cpp"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">它与C++ 演示</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">类似</font><font style="vertical-align: inherit;">。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要使用Python API，您应该复制</font></font><a href="/andrewssobral/simple_vehicle_counting/blob/master/python"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">“python”目录</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">以覆盖生成的目录。</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>~/simple_vehicle_counting/cd build
+~/simple_vehicle_counting/build/cmake ..
+~/simple_vehicle_counting/build/make -j 8
+~/simple_vehicle_counting/build/cp -r ../python/* python/
+~/simple_vehicle_counting/build/../run_python_demo.sh
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="~/simple_vehicle_counting/cd build
+~/simple_vehicle_counting/build/cmake ..
+~/simple_vehicle_counting/build/make -j 8
+~/simple_vehicle_counting/build/cp -r ../python/* python/
+~/simple_vehicle_counting/build/../run_python_demo.sh" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"></font><a href="/andrewssobral/simple_vehicle_counting/blob/master/python"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您之前在项目根目录下构建过项目，请确保“python”目录</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中</font><font style="vertical-align: inherit;">没有之前生成的库</font></font><code>make clean</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">发行说明：</font></font></h2><a id="user-content-release-notes" class="anchor" aria-label="永久链接： 发行说明：" href="#release-notes"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017 年 12 月 4 日：添加了 OpenCV 3.x 支持。</font><font style="vertical-align: inherit;">删除了 vs2013 模板项目（使用 CMAKE 代替）。</font></font></p>
+</li>
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">07/04/2017：添加了 Python API，感谢</font></font><a href="https://github.com/kyu-sz"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@kyu-sz</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+</li>
+<li>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">版本 1.0.0：第一个版本。</font></font></p>
+</li>
+</ul>
+</article></div>
